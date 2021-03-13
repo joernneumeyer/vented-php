@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         colors="true"
+>
+    <testsuites>
+        <testsuite name="Test Suite">
+            <directory>./tests</directory>
+            <exclude>./tests/php8</exclude>
+        </testsuite>
+        <testsuite name="PHP8 Tests">
+            <directory>./tests/php8</directory>
+        </testsuite>
+    </testsuites>
+    <coverage processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">./src</directory>
+        </include>
+<!--        <exclude>-->
+<!--            <directory>./neu/Annotations</directory>-->
+<!--            <directory>./neu/Errors</directory>-->
+<!--        </exclude>-->
+    </coverage>
+</phpunit>

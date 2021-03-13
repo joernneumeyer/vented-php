@@ -1,0 +1,25 @@
+{
+  "name": "neu/vented",
+  "description": "An event handling library for PHP.",
+  "type": "library",
+  "license": "LGPL-3.0-or-later",
+  "authors": [
+    {
+      "name": "Jörn Neumeyer",
+      "email": "contact@joern-neumeyer.de",
+      "homepage": "https://joern-neumeyer.de",
+      "role": "Initial author"
+    }
+  ],
+  "scripts": {
+    "test": "pest --coverage"
+  },
+  "autoload": {
+    "psr-4": {
+      "Neu\\": "src/"
+    }
+  },
+  "require-dev": {
+    "pestphp/pest": "^1.0"
+  }
+}

@@ -1,0 +1,7 @@
+vendor/
+.phpunit.result.cache
+composer.lock
+docs/
+.phpdoc
+.idea/
+sandbox.php
