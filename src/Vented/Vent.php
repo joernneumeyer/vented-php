@@ -5,6 +5,7 @@
   use Closure;
   use Neu\Vented\Annotations\SubscribeTo;
   use Neu\Vented\Events\VentDestruction;
+  use Neu\Vented\Signals\CancelOperation;
   use ReflectionException;
   use ReflectionFunction;
   use ReflectionObject;
@@ -44,7 +45,11 @@
       }
       $subs = $this->subscribers[$asPolymorphicEvent ?? get_class($event)] ?? [];
       foreach ($subs as $sub) {
-        $sub($fromSource, $event);
+        try {
+          $sub($fromSource, $event);
+        } catch (CancelOperation $e) {
+          return null;
+        }
       }
     }
 
