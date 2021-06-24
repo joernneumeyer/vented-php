@@ -1,5 +1,6 @@
 <?php
 
+  use Neu\Vented\Events\Data;
   use Neu\Vented\Sandbox\ExampleEvent;
   use Neu\Vented\Vent;
 
@@ -19,4 +20,21 @@
     $v = Vent::instance()->channel('foobar');
     expect($v)->not->toBeNull();
     expect($v)->toEqual(Vent::instance()->channel('foobar'));
+  });
+
+  it('should properly process nested events', function() {
+    class SomeBaseEvent485 extends Data { }
+    class SomeSubEvent537 extends SomeBaseEvent485 { }
+
+    $base = new Vent();
+    $sub = new Vent();
+    $base->subscribe(SomeBaseEvent485::class, $sub);
+    $called = false;
+    $sub->subscribe(SomeSubEvent537::class, function($emitter, SomeSubEvent537 $e) use (&$called) {
+      $called = true;
+      expect($emitter)->toBeNull();
+      expect($e->payload())->toEqual('sub sub');
+    });
+    $base->emit(null, new SomeSubEvent537('sub sub'), SomeBaseEvent485::class);
+    expect($called)->toBeTrue();
   });
